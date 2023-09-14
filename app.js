@@ -6,7 +6,6 @@ const mongoose = require('mongoose');
 const setup = require('./config');
 const http = require("http");
 const server = http.createServer(app);
-const io = require("socket.io")(server, { cors: { origin: "*" } });
 const PORT = process.env.PORT || 5000;
 
 
@@ -49,11 +48,6 @@ app.use('/', (req, res) => {
 mongoose.connect(setup.MONGODB_CONNECT, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-});
-
-const chatController = require('./controllers/chat');
-const chatSocket = io.of('/socket/support').on('connection', socket => {
-    chatController.respond(chatSocket, socket);
 });
 
 server.listen(PORT, () => {
