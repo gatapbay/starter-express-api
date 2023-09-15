@@ -77,6 +77,7 @@ exports.deleteProduct = (req, res, next) => {
     if (req.user.level < setup.PRODUCTS_MANAGER_LEVEL) {
         return res.status(403).json({ errors: [lang.E403] });
     }
+
     Product.findOneAndDelete({ _id: req.query.id }).then(() => {
         res.status(204).json();
     }).catch(e => { console.log(e); res.status(500).send() })
@@ -125,6 +126,16 @@ exports.updateOrder = async (req, res, next) => {
     }).catch(e => { res.status(500).send() })
 
     res.json();
+};
+
+exports.deleteOrder = (req, res, next) => {
+    if (req.user.level < setup.PRODUCTS_MANAGER_LEVEL) {
+        return res.status(403).json({ errors: [lang.E403] });
+    }
+
+    Order.findOneAndDelete({ _id: req.query.id }).then(() => {
+        res.status(204).json();
+    }).catch(e => { console.log(e); res.status(500).send() })
 };
 
 exports.getSuports = (req, res, next) => {

@@ -59,7 +59,7 @@ exports.createOrder = async (req, res, next) => {
             phone: req.body.phone,
             address: req.body.address,
             time: Date.now(),
-            status: 'INPROGRESS',
+            status: 'ĐẶT HÀNG',
             products: orders
         });
         addOrder.save().then(rs => rs.populate('userId products.product')).then(rs => {
@@ -69,7 +69,7 @@ exports.createOrder = async (req, res, next) => {
                     return rs.save();
                 });
             });
-            confirmMail(rs);
+            //confirmMail(rs);
             res.status(201).json();
         }).catch(e => { console.log(e); res.status(500).send() });;
     }

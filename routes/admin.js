@@ -51,6 +51,9 @@ router.post('/update-order', isAuth, isAdmin, [
     query('id', lang.E1).isString().not().isEmpty(),
     body('status', lang.E15).isString().not().isEmpty(),
 ], errorChecker, controller.updateOrder);
+router.delete('/delete-order', isAuth, isAdmin, [
+    query('id', lang.E1).isString().not().isEmpty(),
+], errorChecker, controller.deleteOrder);
 
 router.get('/supports', isAuth, isAdmin, controller.getSuports);
 
