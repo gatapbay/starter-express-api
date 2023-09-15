@@ -1,18 +1,17 @@
 const nodemailer = require('nodemailer');
-const setup = require('../config');
 
 
 const transporter = nodemailer.createTransport({
-    host: setup.NODEMAILER_HOST,
-    port: setup.NODEMAILER_PORT,
+    host: 'smtp.hostinger.com',
+    port: 465,
     secure: true,
     auth: {
-        user: setup.NODEMAILER_USER,
-        pass: setup.NODEMAILER_PASS
+        user: 'support@lifemart.site',
+        pass: 'Matkhau@01'
     },
-    tls: {
-        rejectUnauthorized: false
-    }
+    // tls: {
+    //     rejectUnauthorized: false
+    // }
 });
 
 module.exports = (orders) => {
@@ -28,7 +27,7 @@ module.exports = (orders) => {
     const content = `
     <div style="background-color:white">
         <div style="padding:10px 0px; color: #000">
-            <h3>Xin chào, ${orders.fullname}</h3>
+            <h3>Người đặt, ${orders.fullname}</h3>
             <p>Phone: ${orders.phone}</p>
             <p>Address: ${orders.address}</p>
             <hr style="opacity: 0.75;"/>
@@ -46,10 +45,18 @@ module.exports = (orders) => {
         </div>
     </div>
     `;
-    if (setup.ORDERS_CONFIRM_MAIL) transporter.sendMail({
-        from: 'Boutique',
-        to: orders.userId.email,
-        subject: 'Xác nhận đơn hàng',
+    transporter.sendMail({
+        from: 'support@lifemart.site',
+        to: 'lifemarttb@gmail.com',
+        subject: 'Có đơn hàng mới được đặt!',
         html: content
-    }, e => e ? false : true);
+    }, (err, info) => {
+        if (err) {
+            console.log(err);
+            return false;
+        }
+        console.log(info.response);
+
+        return true;
+    });
 };
