@@ -40,8 +40,7 @@ module.exports = (orders) => {
                 <tbody>${report}</tbody>
             </table>
             <h4 style="margin-bottom: 30px; text-align: right;">Tổng thanh toán: ${orders.totalPrice.toLocaleString()} VNĐ</h4>
-            <hr style="opacity: 0.75;"/>
-            <h4>Cảm ơn bạn!</h4>
+            
         </div>
     </div>
     `;
